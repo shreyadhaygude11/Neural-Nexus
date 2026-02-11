@@ -1,337 +1,301 @@
-### Algorand dApp Quick Start Guide (Base Template)
+# 🎓 CampusPay – Decentralized Campus Finance Platform
 
-This guide helps non‑technical founders and developers quickly prototype and test Web3 ideas on Algorand using this starter. You’ll set up the project, customize the UI via safe AI prompts, mint tokens and NFTs, and interact with smart contracts.
+**A blockchain-based financial ecosystem for students built on Algorand**
 
-- Repo to fork/clone: `https://github.com/marotipatre/Hackseries-2-QuickStart-template` (source)
-- Works with AlgoKit monorepo structure (contracts + React frontend)
-- Includes prebuilt “cards” demonstrating key patterns:
-  - Counter: simple contract interaction
-  - Bank: complex interaction with contract + Indexer
-  - Asset Create: mint fungible tokens (ASAs)
-  - NFT Mint: upload to IPFS and mint ARC NFTs
-  - Payments: send ALGO and ASA (e.g., USDC)
-
-[Base template repo](https://github.com/marotipatre/Hackseries-2-QuickStart-template)
+CampusPay is a decentralized Web3 platform designed for university campuses, enabling transparent payments, smart expense splitting, verified fundraising, and NFT-based event ticketing.  
+Built on the **Algorand blockchain**, CampusPay removes intermediaries, reduces fees, and enforces trust through **smart contracts instead of institutions**.
 
 ---
 
-## 1) Project Setup
+## 📌 Table of Contents
 
-Prerequisites:
-- Docker (running)
-- Node.js 18+ and npm
-- AlgoKit installed (see official docs)
+- Overview  
+- Why CampusPay  
+- Key Features  
+- System Architecture  
+- Technology Stack  
+- Prerequisites  
+- Quick Start  
+- Project Folder Structure
+- Environment Configuration  
+- Smart Contract Overview  
+- User Journeys  
+- Security Model  
+- Hackathon Demo Plan  
+- Project Differentiators  
+- Roadmap  
+- License  
 
-Clone or fork the base template:
+---
+
+## 🌟 Overview
+
+Campus financial interactions today rely on centralized apps, manual settlements, and opaque systems.  
+CampusPay reimagines this experience using **Algorand’s fast, low-cost blockchain**, delivering a **trustless yet user-friendly campus finance layer**.
+
+**Core Idea:**  
+> If students can scan a QR code and pay instantly, why shouldn’t that transaction be **transparent, verifiable, and fee-free**?
+
+---
+
+## 🤔 Why CampusPay?
+
+### ❌ Problems in Campus Ecosystems
+- Hidden transaction fees  
+- Manual expense settlement  
+- Fake or duplicate event tickets  
+- Untrusted fundraising campaigns  
+- No visibility into spending behavior  
+
+### ✅ CampusPay Solutions
+- On-chain payments with near-zero fees  
+- Smart contracts for automatic settlements  
+- NFT-based ticket verification  
+- Escrow-based fundraising  
+- AI-powered expense insights  
+
+---
+
+## ✨ Key Features
+
+### 👛 Peer-to-Peer Payments
+- Instant ALGO transfers between students  
+- Wallet-to-wallet (non-custodial)  
+- Cryptographic address validation  
+
+### 🤝 Smart Expense Splitting
+- Create groups and split expenses fairly  
+- Smart contract enforces equal contributions  
+- Auto-settlement when all members pay  
+- QR-based sharing for frictionless UX  
+
+### 🎯 Club & Event Fundraising
+- Goal-locked escrow smart contracts  
+- Transparent contribution tracking  
+- Automatic refunds if goals are unmet  
+
+### 🎫 NFT-Based Event Ticketing
+- Tickets minted as **Algorand Standard Assets (ASA)**  
+- One wallet = one ticket (fraud prevention)  
+- On-chain ownership verification at entry  
+
+### 🤖 AI-Powered Insights (Value Addition)
+- Expense categorization (Food, Travel, Rent)  
+- Monthly spending summaries  
+- Smart reminders for pending group payments  
+
+---
+
+## 🏗️ System Architecture
+
+┌─────────────────────────────────────────────────────────────┐
+│                  Frontend (React + Vite)                    │
+│  Dashboard | Payments | Split | Fundraise | Tickets         │
+└───────────────────────────┬─────────────────────────────────┘
+                            │
+                ┌───────────┴───────────┐
+                │                       │
+        ┌───────▼────────┐     ┌───────▼────────┐
+        │ Wallet Connect │     │ AI Assistant   │
+        │ (Pera Wallet)  │     │ (Insights)     │
+        └───────┬────────┘     └────────────────┘
+                │
+        ┌───────▼────────────────────────────────┐
+        │         Algorand Blockchain Layer       │
+        │  Payments | Expense | Escrow | Tickets  │
+        │  Smart Contracts (PyTeal / AlgoKit)     │
+        └────────────────────────────────────────┘
+                            │
+                ┌───────────┴───────────┐
+                │                       │
+        ┌───────▼────────┐     ┌───────▼────────┐
+        │ Algorand Index │     │ Backend API    │
+        │ (Tx History)   │     │ (Node.js)      │
+        └────────────────┘     └────────────────┘
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend
+- React 18 + Vite  
+- TailwindCSS / Glassmorphism UI  
+- Pera Wallet SDK  
+- QR Codes  
+- Recharts (Analytics)
+
+### Blockchain
+- Algorand TestNet → MainNet  
+- Algorand JavaScript SDK  
+- Algorand Standard Assets (ASA)  
+- Smart Contracts: PyTeal (AlgoKit)
+
+### Backend & AI
+- Node.js + Express  
+- MongoDB (metadata & profiles)  
+- Algorand Indexer  
+- OpenAI (expense categorization & insights)
+
+---
+
+## 📦 Prerequisites
+- Node.js v18+  
+- Python 3.10+  
+- AlgoKit installed  
+- Pera Wallet (TestNet funded)  
+- Docker (recommended)  
+
+---
+
+## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/marotipatre/Hackseries-2-QuickStart-template.git
-cd Hackseries-2-QuickStart-template
-```
+git clone https://github.com/Shreya-d29/Campuspay.git
+cd campuspay
 
-Bootstrap the workspace (installs deps, sets up venv, etc.):
-
-```bash
 algokit project bootstrap all
-```
-
-Build all projects:
-
-```bash
 algokit project run build
-```
 
-Run the frontend:
-
-```bash
 cd projects/frontend
 npm install
 npm run dev
-```
 
-Optional: alternative starter to compare or borrow patterns from:
+## 📁 Project Folder Structure
 
-```bash
-git clone https://github.com/Ganainmtech/Algorand-dApp-Quick-Start-Template-TypeScript.git
-```
+```text
+CampusPay-main/
+│
+├── .agent/
+│   └── workflows/
+│       └── run-project.md
+│
+├── algo_workspace/
+│   └── smart_contracts/
+│       └── contract.py
+│
+├── campuspay/                 # Frontend (React + Vite)
+│   ├── public/
+│   ├── src/
+│   ├── .gitignore
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── vite.config.js
+│   └── README.md
+│
+├── puyap_project/             # PyTeal / Puya entry
+│   └── main.py
+│
+├── smart_contracts/
+│   └── campuspay/
+│       ├── CampusPay.approval.teal
+│       ├── CampusPay.clear.teal
+│       ├── CampusPay.arc56.json
+│       ├── CampusPay.approval.puya.map
+│       ├── CampusPay.clear.puya.map
+│       ├── contract.py        # PyTeal smart contract logic
+│       └── deploy.py          # Deployment script
+│
+├── compile_out_u8.txt
+├── compile_out.txt
+├── deploy_err.txt
+├── deploy_err2.txt
+│
+├── .gitignore
+└── README.md
 
-References:
-- Algorand Developer Portal: `https://dev.algorand.co/`
-- AlgoKit Workshops: `https://algorand.co/algokit-workshops`
-- Algodevs YouTube: `https://www.youtube.com/@algodevs`
 
 ---
 
-## 2) Required environment variables (Frontend)
+## 🧩 Folder Description
 
-Create `projects/frontend/.env` with the following values for TestNet (adjust as needed):
+- **campuspay/**  
+  Frontend Web3 application built using **React + Vite**, integrated with **Pera Wallet**.
 
-```bash
-# Network (Algod)
+- **smart_contracts/campuspay/**  
+  Core Algorand smart contracts written in **PyTeal**, including compiled TEAL files and ARC-56 ABI.
+
+- **deploy.py**  
+  Handles smart contract deployment to Algorand TestNet/MainNet.
+
+- **algo_workspace/**  
+  AlgoKit workspace used during development and testing.
+
+- **puyap_project/**  
+  Puya-compatible project entry for smart contract compilation.
+
+- **compile_out / deploy_err logs**  
+  Compilation and deployment logs for debugging.
+
+---
+
+## 📌 Notes
+- Frontend and smart contracts are **cleanly separated**
+- Supports **AlgoKit + PyTeal workflow**
+- Ready for **hackathon demos and production extension**
+
+## ⚙️ Environment Configuration (Frontend)
+
+Create the following file:
+
+**`projects/frontend/.env`**
+
+```env
 VITE_ALGOD_SERVER=https://testnet-api.algonode.cloud
 VITE_ALGOD_PORT=
 VITE_ALGOD_TOKEN=
 VITE_ALGOD_NETWORK=testnet
 
-# Indexer (for Bank/indexed reads)
 VITE_INDEXER_SERVER=https://testnet-idx.algonode.cloud
 VITE_INDEXER_PORT=
 VITE_INDEXER_TOKEN=
 
-# Optional: KMD (if using a local KMD wallet)
-VITE_KMD_SERVER=http://localhost
-VITE_KMD_PORT=4002
-VITE_KMD_TOKEN=a-super-secret-token
-VITE_KMD_WALLET=unencrypted-default-wallet
-VITE_KMD_PASSWORD=some-password
-
-# Pinata (NFT media + metadata to IPFS)
-# Generate a JWT in Pinata and paste below
-VITE_PINATA_JWT=eyJhbGciOi...  # JWT from Pinata
-# Optional: custom gateway
+VITE_PINATA_JWT=YOUR_PINATA_JWT
 VITE_PINATA_GATEWAY=https://gateway.pinata.cloud/ipfs
-```
 
-Notes:
-- Algod/Indexer config is read by `src/utils/network/getAlgoClientConfigs.ts`:
-  - `VITE_ALGOD_SERVER`, `VITE_ALGOD_PORT`, `VITE_ALGOD_TOKEN`, `VITE_ALGOD_NETWORK`
-  - `VITE_INDEXER_SERVER`, `VITE_INDEXER_PORT`, `VITE_INDEXER_TOKEN`
-- Pinata integration expects `VITE_PINATA_JWT` and optional `VITE_PINATA_GATEWAY` for NFT uploads (see `src/utils/pinata.ts`).
-- Restart the dev server after editing `.env`.
+## ⛓️ Smart Contract Overview
 
-Pinata API keys/JWT: create via Pinata dashboard `https://app.pinata.cloud/developers/api-keys` and use the generated JWT.
+### 1️⃣ Expense Split Contract
+- Stores group members and total amount  
+- Calculates per-person share  
+- Releases funds only after all members pay  
 
----
+### 2️⃣ Fundraising Escrow Contract
+- Locks funds until goal is reached  
+- Allows withdrawal only to campaign owner  
+- Auto-refunds contributors if deadline passes  
 
-## 3) Project map (what to tweak)
-
-Frontend location: `projects/frontend`
-
-Key files:
-- `src/Home.tsx` — Landing page
-- `src/components/Transact.tsx` — Payments (ALGO, template for ASA)
-- `src/components/Bank.tsx` — Contract + Indexer demo (deploy, deposit, withdraw, statements, depositors)
-- `src/components/CreateASA.tsx` — Create fungible tokens (ASA)
-- `src/components/MintNFT.tsx` — Mint NFTs with IPFS media/metadata
-- `src/components/AppCalls.tsx` — Example app call wiring to a contract
-- `src/utils/pinata.ts` — Pinata IPFS utilities (file/JSON pin)
-- `src/utils/network/getAlgoClientConfigs.ts` — Network configs from Vite env
-
-Contracts (generated artifacts, clients):
-- `projects/contracts/smart_contracts/**` and `projects/frontend/src/contracts/**`
+### 3️⃣ Event Ticket ASA
+- Non-divisible NFTs (decimals = 0)  
+- Wallet-based ownership verification  
+- Prevents duplicate or fake tickets  
 
 ---
 
-## 4) Use AI to redesign UI safely (keep logic intact)
+## 🧭 User Journeys
 
-How to work:
-1) Open the target file and copy its full contents.
-2) Paste into your AI tool (ChatGPT/Claude/Gemini).
-3) Use the corresponding prompt below to redesign using TailwindCSS.
-4) Replace only JSX/markup/styles. Do NOT change logic, imports, props, state, handlers, or function calls.
+### Split a Group Expense
+1. Create expense group  
+2. Deploy smart contract  
+3. Share QR with members  
+4. Auto-settlement on completion  
 
-### 4.1 Home (Landing Page)
+### Fundraise for Campus Event
+1. Launch campaign with goal & deadline  
+2. Students contribute transparently  
+3. Smart contract releases or refunds funds  
 
-File: `projects/frontend/src/Home.tsx`
-
-Prompt:
-```
-I'm building an Algorand dApp and want to improve the design of my landing page in projects/frontend/src/Home.tsx. Please redesign the layout using modern web design principles with TailwindCSS. Include:
-- A visually striking hero section with a short headline and subheading
-- A primary call-to-action button that navigates to key features
-- A simple feature grid that highlights the cards: Counter, Bank, Payments, Create Token (ASA), Mint NFT
-- Balanced spacing, responsive design (mobile/desktop), and a Web3/tech-style color theme
-Keep ALL existing logic for wallet connection, navigation, event handlers, and button states EXACTLY as they are — do not change any logic or data flow. Only change the JSX structure and Tailwind classes.
-```
-
-### 4.2 Payments (Transact)
-
-File: `projects/frontend/src/components/Transact.tsx`
-
-Prompt:
-```
-I'm building a payments dApp on Algorand that allows users to send ALGO or USDC to others. I’ve pasted the existing projects/frontend/src/components/Transact.tsx which already contains transaction logic. Please redesign this component using TailwindCSS to look like a clean, modern payment interface:
-- Clear inputs for recipient address and read-only display for amount (1 ALGO in this example)
-- A prominent Send button
-- Helpful labels, subtle validation states, and a simple success message area
-- Responsive, minimal Web3 design aesthetic
-Keep ALL wallet and transaction logic EXACTLY as it is — do not change any function names, props, state variables, or event handlers.
-```
-
-Optional extension prompt (ASA like USDC):
-```
-Extend the UI design to optionally switch between sending ALGO or an ASA (e.g., USDC) without changing existing ALGO logic. Only provide additional JSX blocks and Tailwind classes; do not modify or remove the current payment logic. You can add a new tab-like UI and mock disabled form fields for ASA to show the final look-and-feel.
-```
-
-### 4.3 Bank (Complex contract + Indexer)
-
-File: `projects/frontend/src/components/Bank.tsx`
-
-Prompt:
-```
-This is a "Bank" demo that shows a more complex Algorand contract integration with Indexer queries, boxes, and inner transactions. I’ve pasted projects/frontend/src/components/Bank.tsx. Please enhance the UI with TailwindCSS:
-- Clear App ID input and App Address display
-- Two panels: Deposit (memo + amount) and Withdraw (amount)
-- A status area for loading/spinners and action feedback
-- Paginated, scrollable Statements and Depositors lists, with clear labels and link to explorer
-- Keep it responsive and professional with a dashboard feel
-Do NOT change any logic, props, function names, or data fetching. Only adjust JSX structure and Tailwind classes.
-```
-
-### 4.4 Create ASA (Fungible tokens)
-
-File: `projects/frontend/src/components/CreateASA.tsx`
-
-Prompt:
-```
-I'm building a loyalty/stablecoin-like token on Algorand. I’ve included projects/frontend/src/components/CreateASA.tsx with working ASA creation logic. Please redesign the component using TailwindCSS to present a professional token creation form:
-- Inputs: Token Name, Unit/Symbol, Decimals, Total Supply (base units)
-- A clear, primary "Create Token" button with loading/disabled states
-- A compact help text about each field
-- Minimal dashboard style consistent with the rest of the app
-Keep ALL minting and wallet logic EXACTLY as-is — change ONLY layout and Tailwind classes.
-```
-
-### 4.5 Mint NFT (IPFS + ARC NFT)
-
-File: `projects/frontend/src/components/MintNFT.tsx`
-
-Prompt:
-```
-I'm building an Algorand-based NFT dApp that allows users to mint digital collectibles. I’ve pasted projects/frontend/src/components/MintNFT.tsx which already includes upload to IPFS and NFT mint logic. Please redesign using TailwindCSS:
-- Upload field for image/file with preview
-- Inputs for Name and Description
-- Display upload and mint progress (spinners, progress bars, small status messages)
-- A primary "Mint NFT" button with clear disabled/loading states
-- A link to view the NFT/metadata via the configured IPFS gateway
-Keep ALL wallet, IPFS (Pinata), and minting logic EXACTLY as-is — modify only JSX and Tailwind classes.
-```
+### Buy & Verify Event Ticket
+1. Purchase NFT ticket  
+2. Ticket stored in wallet  
+3. On-chain verification at entry  
 
 ---
 
-## 5) NFT Environment (Pinata + IPFS)
-
-- Create Pinata API Key/JWT: `https://app.pinata.cloud/developers/api-keys`
-- Put JWT in `projects/frontend/.env` as `VITE_PINATA_JWT`
-- Optional: set `VITE_PINATA_GATEWAY` to your preferred gateway
-- Restart dev server after changing `.env`:
-
-```bash
-npm run dev
-```
-
-NFT flow uses:
-- `src/utils/pinata.ts` (expects `VITE_PINATA_JWT`, optional `VITE_PINATA_GATEWAY`)
-- `pinFileToIPFS` and `pinJSONToIPFS` endpoints
-
----
-
-## 6) Smart Contract interaction basics
-
-- Example TS clients are generated into `projects/frontend/src/contracts`
-- Frontend demo wiring in `src/components/AppCalls.tsx`
-- Use Bank/Counter cards to explore app call patterns, boxes, and Indexer usage
-
-Learn more:
-- Algorand Dev Portal: `https://dev.algorand.co/`
-- AlgoKit Workshops: `https://algorand.co/algokit-workshops`
-- Algodevs YouTube: `https://www.youtube.com/@algodevs`
-
----
-
-## 7) Card overview and tweak ideas
-
-- Counter
-  - Purpose: Simple app call demonstration
-  - Tweak: Typography, spacing, and success toast placement
-  - AI tip: “Add a hero-like header; keep all state/handlers/contract calls unchanged.”
-
-- Bank
-  - Purpose: Complex contract with deposit/withdraw and Indexer reads
-  - Tweak: Two-column layout, data tables with pagination, explorer links
-  - AI tip: “Make statements/depositors scrollable; maintain all function names and handlers.”
-
-- Payments (Transact)
-  - Purpose: Send ALGO (and optionally mock ASA UI)
-  - Tweak: Input clarity, action emphasis, subtle validation messaging
-  - AI tip: “Keep existing ALGO logic identical; ASA tab as UI-only demo.”
-
-- Create ASA
-  - Purpose: Mint fungible token
-  - Tweak: Professional form design, helper text for decimals/total
-  - AI tip: “Do not change the `algorand.send.assetCreate` call; style form and loading states.”
-
-- Mint NFT
-  - Purpose: Upload media/metadata to IPFS, mint an ARC NFT
-  - Tweak: File upload preview, progress messages, gateway links
-  - AI tip: “Keep Pinata calls and NFT mint logic intact; enhance UI and progress indicators.”
-
----
-
-## 8) Troubleshooting
-
-- “Missing VITE_ALGOD_SERVER”
-  - Ensure `.env` exists in `projects/frontend` and values are set
-  - Restart `npm run dev`
-
-- “Missing VITE_PINATA_JWT” or IPFS upload fails
-  - Generate JWT in Pinata dashboard and add to `.env`
-  - Confirm gateway works or remove custom gateway (defaults to `https://ipfs.io/ipfs`)
-
-- Indexer queries return empty
-  - Verify `VITE_INDEXER_SERVER` is a TestNet Indexer and `VITE_ALGOD_NETWORK=testnet`
-  - Confirm correct App ID in Bank card
-
-- Transactions fail
-  - Ensure wallet is connected and funded
-  - For Bank, input a valid App ID or deploy via the card
-
----
-
-## 9) CI/CD (Optional)
-
-- Integrate with GitHub Actions for lint/type/test and deployments.
-- Deploy smart contracts via `algokit deploy`.
-- Deploy frontend to Vercel/Netlify; add these `.env` variables to hosting settings.
-
----
-
-## 10) Copy‑ready AI Prompt Snippets
-
-Use these verbatim as you work card‑by‑card:
-
-- Home:
-```
-Redesign projects/frontend/src/Home.tsx using TailwindCSS for a modern Web3 landing page with a strong hero, concise subtitle, and a grid of feature cards (Counter, Bank, Payments, Create Token, Mint NFT). Keep all wallet/navigation logic, props, and handlers EXACTLY as-is. Modify only JSX and Tailwind classes.
-```
-
-- Transact:
-```
-Redesign projects/frontend/src/components/Transact.tsx into a clean payments UI (recipient input, 1 ALGO send button, success message area). Keep ALL existing logic and handlers unchanged. Modify only JSX/Tailwind. Optionally add an ASA tab UI mock without changing logic.
-```
-
-- Bank:
-```
-Enhance projects/frontend/src/components/Bank.tsx with a dashboard feel: App ID input, deploy section, deposit/withdraw cards, scrollable statements and depositors lists with explorer links. Maintain ALL logic and calls as-is; only update layout and Tailwind classes.
-```
-
-- Create ASA:
-```
-Redesign projects/frontend/src/components/CreateASA.tsx to a professional token creation form with inputs (Name, Unit, Decimals, Total), helper text, and a prominent Create button with loading state. Keep all ASA creation logic intact; change only JSX/Tailwind.
-```
-
-- Mint NFT:
-```
-Redesign projects/frontend/src/components/MintNFT.tsx for a sleek NFT minter: file upload with preview, name/description fields, visible Mint button, and progress indicators. Keep Pinata, IPFS, and mint logic untouched; only adjust JSX/Tailwind.
-```
-
----
-
-Links cited:
-- Base template repo: [marotipatre/Hackseries-2-QuickStart-template](https://github.com/marotipatre/Hackseries-2-QuickStart-template)
-- Algorand Developer Portal: `https://dev.algorand.co/`
-- AlgoKit Workshops: `https://algorand.co/algokit-workshops`
-- Algodevs YouTube: `https://www.youtube.com/@algodevs`
-- Pinata API Keys: `https://app.pinata.cloud/developers/api-keys`
-
-
+## 🔐 Security Model
+- Non-custodial wallets (users own keys)  
+- Open-source smart contracts  
+- Immutable on-chain records  
+- No admin control over user funds  
+- Optional multi-sig for large campaigns
