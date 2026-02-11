@@ -21,9 +21,6 @@ Built on the **Algorand blockchain**, CampusPay removes intermediaries, reduces 
 - Smart Contract Overview  
 - User Journeys  
 - Security Model  
-- Hackathon Demo Plan  
-- Project Differentiators  
-- Roadmap  
 - License  
 
 ---
@@ -303,3 +300,11 @@ VITE_PINATA_GATEWAY=https://gateway.pinata.cloud/ipfs
 - Immutable on-chain records  
 - No admin control over user funds  
 - Optional multi-sig for large campaigns
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+You are free to use, modify, and distribute this software for academic and commercial purposes, provided that proper attribution is given.
+
+See the LICENSE file for full details.
